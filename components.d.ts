@@ -11,13 +11,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
-    BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
-    BContainer: typeof import('bootstrap-vue-next/components/BContainer')['BContainer']
-    BRow: typeof import('bootstrap-vue-next/components/BContainer')['BRow']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
-    Pinia: typeof import('./src/components/Pinia.vue')['default']
     ProductCard: typeof import('./src/components/ProductCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
