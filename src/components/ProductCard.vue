@@ -14,7 +14,7 @@ const {product} = defineProps ({ product: Object})
 
 
     <h3> {{ product.description}}</h3>
-     <p>{{ product.price }} kr</p>
+     <h4>{{ product.price }} kr</h4>
     </article>
      </RouterLink>
 </template>

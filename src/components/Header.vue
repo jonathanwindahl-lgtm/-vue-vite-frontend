@@ -2,7 +2,11 @@
 import SearchBar from '../components/SearchBar.vue';
 
 const props = defineProps ({
-  modelValue: String
+  modelValue: String,
+  cartCount: {
+    type: Number,
+    default: 0
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -23,7 +27,7 @@ const emit = defineEmits(['update:modelValue'])
 
     <nav class="user-nav">
     <RouterLink to="login"><p>Logga in</p></RouterLink>
-    <span id="cart-count">0</span>
+    <span id="cart-count">{{ cartCount }}</span>
 
           <RouterLink to="/checkout">
           <img src="/kassa.jpg" id="cart-icon"  alt="Till kassan">
@@ -80,6 +84,21 @@ a {
 .user-nav {
   display: flex;
   align-items: center;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+  .top {
+    font-size: 0.7rem;
+  }
+  .header-bar {
+    flex-direction: column;
+    align-items: baseline;
+  }
 }
 
 

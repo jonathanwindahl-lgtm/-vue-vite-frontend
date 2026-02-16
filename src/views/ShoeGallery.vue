@@ -1,6 +1,6 @@
 <script>
 import ProductCard from '../components/ProductCard.vue';
-import axios from 'axios';
+import { useProductsStore } from '../store';
 
   export default {
 
@@ -9,29 +9,37 @@ import axios from 'axios';
     },
 
     components:{
-      ProductCard,
+      ProductCard
     },
 
     data() {
       return {
-        products: [],
-      };
+        productsStore: useProductsStore()
+      }
     },
 
     mounted() {
-      axios
-        .get("https://6915a1dc84e8bd126afabb7f.mockapi.io/Products")
-        .then(response =>(this.products = this.shuffleArray(response.data)))
-  },
+
+      if (this.productsStore.products.length === 0) {
+      this.productsStore.fetchProducts()
+    }
+    },
+
 
     computed: {
       filteredItems() {
         if (this.searchText) {
-          return this.products.filter(p => p.description.toLowerCase().includes(this.searchText.toLowerCase()))
+          return this.productsStore.products.filter(p =>
+          p.description.toLowerCase().includes(this.searchText.toLowerCase()))
 
       }
-          return this.products
-    }
+          return this.productsStore.products
+      },
+
+      loading() {
+
+        return this.productsStore?.loading
+      }
       },
 
       methods: {
@@ -50,10 +58,7 @@ import axios from 'axios';
 
         console.log(oldText+ " Har ändrats till " + newtext)
       }
-
-
     }
-
 }
 </script>
 
@@ -63,7 +68,7 @@ import axios from 'axios';
 
     <section class ="product-grid">
 
-    <p v-if="products.length === 0">Laddar produkter...</p>
+    <p v-if="loading">Laddar produkter...</p>
 
     <ProductCard v-for="p in filteredItems" :key="p.id" :product="p"/>
 
@@ -76,6 +81,24 @@ import axios from 'axios';
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+
+   .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+   .footer-section {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+
+  }
+  }
 
 
 

@@ -14,7 +14,13 @@ import Composition from "./components/SearchBar.vue";
     data () {
 
       return {
-        searchText:""
+        searchText:"",
+        cartCount: 0
+      }
+    },
+    methods: {
+      updateCartCount (count) {
+        this.cartCount = count
       }
     }
   };
@@ -22,8 +28,8 @@ import Composition from "./components/SearchBar.vue";
 
 <template>
   <div class="container">
-  <Header v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="searchText"/>
-  <RouterView :searchText="searchText"/>
+  <Header v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="searchText" :cartCount="cartCount"/>
+  <RouterView :searchText="searchText" @cart-count="updateCartCount"/>
   <Footer  v-if="$route.path !== '/login' && $route.path !== '/register'"/>
 </div>
 </template>

@@ -3,20 +3,68 @@
   export default {
     props: ["id"],
 
+
     data() {
       return {
-        product: null
+        product: null,
+        selectedSize: "",
+        sizeError: "",
+        cart: []
       };
     },
 
     mounted() {
+      this.cart = this.getCart()
+
       fetch(`https://6915a1dc84e8bd126afabb7f.mockapi.io/Products/${this.id}`)
       .then(response => response.json())
-      .then(data =>
+      .then(data => {
 
-        this.product = data)
+        this.product = data
+    })
+},
+methods: {
+
+  getCart () {
+    return JSON.parse(localStorage.getItem("cart")) || []
+  },
+  saveCart () {
+    localStorage.setItem("cart", JSON.stringify(this.cart))
+  },
+
+  addToCart() {
+    if (!this.selectedSize) {
+      this.sizeError = "Du måste välja en storlek"
+      return
+    }
+    this.sizeError = ""
+    const productId = Number(this.product.id)
+
+    const item = this.cart.find(
+      i => i.id === productId && i.size === this.selectedSize
+    )
+    if (item) {
+      item.quantity++
+    } else {
+      this.cart.push ({
+        id: productId,
+        size: this.selectedSize,
+        quantity: 1
+      })
+    }
+    this.saveCart()
+      this.cartCount()
+  },
+  cartCount() {
+    const count = this.cart.reduce(
+      (sum, item) => sum + item.quantity, 0
+    )
+    this.$emit("cart-count", count)
   }
+  }
+
 }
+
 </script>
 
 <template>
@@ -36,8 +84,8 @@
 
      <label for="size">Storlek</label>
             <div>
-              <select name="size" id="size" required>
-                <option selected disabled value="">Välj storlek</option>
+              <select v-model="selectedSize" required>
+                <option  disabled value="">Välj storlek</option>
                 <option value="41">41</option>
                 <option value="42">42</option>
                 <option value="43">43</option>
@@ -45,9 +93,11 @@
                 <option value="45">45</option>
               </select>
             </div>
-            <p id="sizeError"></p>
+            <p v-if="sizeError" class="error"> {{ sizeError }}</p>
 
-              <button class="btn" id="addToCartBtn">Lägg i kundvagn</button>
+              <button class="btn" @click="addToCart">Lägg i kundvagn</button>
+              <!-- <BButton variant="success" @click="addToCart">Lägg i kundvagn</BButton> -->
+
 
             <section id="product-info">
               <h3>Produktinformation</h3>
@@ -62,7 +112,6 @@
 
 
     </div>
-
 
 </template>
 
@@ -79,7 +128,9 @@
   align-items: center;
 }
 
-
+.error {
+  color: red;
+}
 
 .product-detail img {
   width: 50%;
@@ -95,7 +146,6 @@ a {
 
 #product-info {
   margin: 20px;
-
 
 }
 

@@ -46,7 +46,4 @@ it('skapar konto och sparar användare i localStorage', () => {
   })
 
 })
-
-
-
 })
