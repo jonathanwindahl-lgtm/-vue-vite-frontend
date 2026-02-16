@@ -10,7 +10,8 @@ const {product} = defineProps ({ product: Object})
 <RouterLink :to="`/product/${product.id}`">
   <article class="product-card">
 
-<img :src="`${import.meta.env.BASE_URL}${product.imageUrl}`" :alt="product.description" />
+  <img :src="`${import.meta.env.BASE_URL}${product.imageUrl}`" :alt="product.description" />
+
 
     <h3> {{ product.description}}</h3>
      <h4>{{ product.price }} kr</h4>
