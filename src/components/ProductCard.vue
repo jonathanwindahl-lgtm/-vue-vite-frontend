@@ -3,6 +3,8 @@ import { RouterLink } from 'vue-router';
 
 const {product} = defineProps ({ product: Object})
 
+const getImageUrl = (path) => import.meta.env.BASE_URL + path
+
 </script>
 
 <template>
@@ -10,7 +12,7 @@ const {product} = defineProps ({ product: Object})
 <RouterLink :to="`/product/${product.id}`">
   <article class="product-card">
 
-  <img :src="`${import.meta.env.BASE_URL}${product.imageUrl}`" :alt="product.description" />
+  <img :src="getImageUrl(product.imageUrl)" :alt="product.description" />
 
 
     <h3> {{ product.description}}</h3>

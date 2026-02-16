@@ -30,8 +30,8 @@ const emit = defineEmits(['update:modelValue'])
     <span id="cart-count">{{ cartCount }}</span>
 
           <RouterLink to="/checkout">
-          <img src="/kassa.jpg" id="cart-icon"  alt="Till kassan">
-        </RouterLink>
+        <img src="/assets/kassa.jpg" id="cart-icon" alt="Till kassan">
+      </RouterLink>
         </nav>
     </div>
 <div class="divider"></div>
