@@ -9,5 +9,6 @@ export default defineConfig({
     Components({
       resolvers: [BootstrapVueNextResolver()]
     })
-  ]
+  ],
+  base: '/-vue-vite-frontend/'
 })
