@@ -75,7 +75,7 @@ watch(
         </article>
       </section>
 
-      <section v-if="isLoggedIn">
+      <section class="discount" v-if="isLoggedIn">
         <p>Som inloggad kund får du använda rabattkod! Använd "VIP25"</p>
         <input v-model="discountCode" type="text" placeholder="Skriv rabattkod här" />
         <button @click="applyDiscount">Använd kod</button>
@@ -114,5 +114,9 @@ watch(
 .text-main {
   font-size: large;
   color: #0077cc;
+}
+
+.discount {
+  margin: 10px 0 10px;
 }
 </style>

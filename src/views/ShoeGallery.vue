@@ -1,6 +1,7 @@
 <script>
 import ProductCard from "../components/ProductCard.vue"
 import { useProductsStore } from "../store"
+import ProductFilter from "../components/ProductFilter.vue"
 
 export default {
   props: {
@@ -11,12 +12,14 @@ export default {
   },
 
   components: {
-    ProductCard
+    ProductCard,
+    ProductFilter
   },
 
   data() {
     return {
-      productsStore: useProductsStore()
+      productsStore: useProductsStore(),
+      filterResult: []
     }
   },
 
@@ -28,12 +31,13 @@ export default {
 
   computed: {
     filteredItems() {
+      let items = this.filterResult.length ? this.filterResult : this.productsStore.products
       if (this.searchText) {
-        return this.productsStore.products.filter((p) =>
+        return items.filter((p) =>
           p.description.toLowerCase().includes(this.searchText.toLowerCase())
         )
       }
-      return this.productsStore.products
+      return items
     },
 
     loading() {
@@ -45,6 +49,8 @@ export default {
 
 <template>
   <h2 style="color: #0077cc">Populära produkter</h2>
+
+  <ProductFilter @filtered="filterResult = $event" />
 
   <section class="product-grid">
     <p v-if="loading">Laddar produkter...</p>

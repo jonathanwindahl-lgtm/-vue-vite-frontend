@@ -67,10 +67,9 @@ export default {
       <section id="product-info">
         <h3>Produktinformation</h3>
         <ul>
-          <li>Lätta och bekväma löparskor</li>
-          <li>Andningsbar ovandel i mesh</li>
-          <li>Dämpad sula för optimal komfort</li>
-          <li>Perfekta för både träning och vardagslöpning</li>
+          <li>Färg: {{ product.color }}</li>
+          <li>Löpstil: {{ product.style }}</li>
+          <li>Dämpning: {{ product.damping }}</li>
         </ul>
       </section>
     </div>
