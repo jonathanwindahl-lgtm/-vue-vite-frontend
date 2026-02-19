@@ -1,6 +1,6 @@
 <script setup>
-import {ref} from "vue"
-import {useRouter} from "vue-router"
+import { ref } from "vue"
+import { useRouter } from "vue-router"
 
 const router = useRouter()
 
@@ -44,14 +44,9 @@ function createAccount() {
     router.push("/login")
   }, 3000)
 }
-
-
 </script>
 
-
 <template>
-
-
   <header>
     <RouterLink to="/"><h1>Springskor</h1></RouterLink>
   </header>
@@ -59,32 +54,28 @@ function createAccount() {
     <article>
       <section class="login">
         <h2>Skapa konto</h2>
-        <form onsubmit="return false;">
+        <form onsubmit="return false">
+          <label for="email">Email</label>
+          <input class="info" v-model="email" type="email" placeholder="Mejl" />
+          <p v-if="emailError" class="error">{{ emailError }}</p>
 
-        <label for="email">Email</label>
-         <input  class="info" v-model="email" type="email" placeholder="Mejl" />
-         <p v-if="emailError" class="error">{{ emailError }}</p>
+          <label for="psw">Lösenord</label>
+          <input class="info" v-model="password" type="password" placeholder="Lösenord" />
+          <p v-if="passwordError" class="error">{{ passwordError }}</p>
 
-         <label for="psw">Lösenord</label>
-         <input class="info" v-model="password" type="password" placeholder="Lösenord" />
-         <p v-if="passwordError" class="error"> {{ passwordError }}</p>
+          <button @click="createAccount">Skapa konto</button>
 
-         <button @click="createAccount">Skapa konto</button>
-
-         <p v-if="message" class="success">{{ message }}</p>
+          <p v-if="message" class="success">{{ message }}</p>
         </form>
         <aside>
-              <RouterLink to="/login"><p>Tillbaka till inloggningen</p></RouterLink>
+          <RouterLink to="/login"><p>Tillbaka till inloggningen</p></RouterLink>
         </aside>
       </section>
     </article>
   </main>
-
-
 </template>
 
 <style scoped>
-
 .login {
   margin: 0 auto;
   background-color: white;
@@ -96,7 +87,7 @@ function createAccount() {
 }
 
 h1 {
-  color: #0077CC;
+  color: #0077cc;
   text-align: center;
 }
 
@@ -105,7 +96,7 @@ h2 {
 }
 
 a {
-  color: #0077CC;
+  color: #0077cc;
   text-decoration: none;
   display: block;
   text-align: center;
@@ -124,7 +115,7 @@ a:focus {
 }
 
 button {
-  background-color: #0077CC;
+  background-color: #0077cc;
   color: white;
   width: 100%;
   padding: 1em 1em;
@@ -136,7 +127,7 @@ button {
 }
 
 button:hover {
-  background-color: #005FA3;
+  background-color: #005fa3;
 }
 
 p {
@@ -144,22 +135,17 @@ p {
   margin: 0.5em 0;
 }
 
-
 .error {
   color: red;
 }
 
-.sucess {
+.success {
   color: green;
 }
-
 
 @media screen and (max-width: 768px) {
   .login {
     max-width: 300px;
   }
 }
-
-
-
 </style>

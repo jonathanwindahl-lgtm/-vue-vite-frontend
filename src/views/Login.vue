@@ -1,6 +1,6 @@
 <script setup>
-import {ref} from "vue"
-import {useRouter} from "vue-router"
+import { ref } from "vue"
+import { useRouter } from "vue-router"
 
 const router = useRouter()
 
@@ -10,9 +10,7 @@ const message = ref("")
 const messageColor = ref("")
 
 function login() {
-
   const user = JSON.parse(localStorage.getItem("user"))
-
 
   if (!user) {
     message.value = "Inget konto hittades!"
@@ -29,21 +27,17 @@ function login() {
     messageColor.value = "green"
 
     setTimeout(() => {
-      router.push('/')
+      router.push("/")
     }, 3000)
   } else {
-    message.value= "Fel användarnamn eller lösenord!"
-     messageColor.value = "red"
+    message.value = "Fel användarnamn eller lösenord!"
+    messageColor.value = "red"
   }
 }
-
-
 </script>
 
 <template>
-
-
-   <header>
+  <header>
     <RouterLink to="/"><h1>Springskor</h1></RouterLink>
   </header>
   <main>
@@ -52,14 +46,19 @@ function login() {
         <h2>Logga in</h2>
         <form @submit.prevent="login">
           <label for="email">Email</label>
-          <input class="info" type="email" v-model="email" placeholder="Ange mejladress" required>
+          <input class="info" type="email" v-model="email" placeholder="Ange mejladress" required />
 
           <label for="psw">Lösenord</label>
-          <input class="info" type="password" v-model="password" placeholder="Ange lösenord" required>
-
+          <input
+            class="info"
+            type="password"
+            v-model="password"
+            placeholder="Ange lösenord"
+            required
+          />
 
           <button type="submit">Logga in</button>
-          <p :style="{color: messageColor}">{{ message }}</p>
+          <p :style="{ color: messageColor }">{{ message }}</p>
         </form>
         <aside>
           <RouterLink to="register"><p>Skapa konto</p></RouterLink>
@@ -67,11 +66,9 @@ function login() {
       </section>
     </article>
   </main>
-
 </template>
 
 <style scoped>
-
 .login {
   margin: 0 auto;
   background-color: white;
@@ -83,7 +80,7 @@ function login() {
 }
 
 h1 {
-  color: #0077CC;
+  color: #0077cc;
   text-align: center;
 }
 
@@ -92,7 +89,7 @@ h2 {
 }
 
 a {
-  color: #0077CC;
+  color: #0077cc;
   text-decoration: none;
   display: block;
   text-align: center;
@@ -111,7 +108,7 @@ a:focus {
 }
 
 button {
-  background-color: #0077CC;
+  background-color: #0077cc;
   color: white;
   width: 100%;
   padding: 1em 1em;
@@ -123,7 +120,7 @@ button {
 }
 
 button:hover {
-  background-color: #005FA3;
+  background-color: #005fa3;
 }
 
 p {
@@ -136,6 +133,4 @@ p {
     max-width: 300px;
   }
 }
-
-
 </style>

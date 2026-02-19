@@ -1,30 +1,25 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-
-const {product} = defineProps ({ product: Object})
-
-const getImageUrl = (path) => import.meta.env.BASE_URL + path
-
+defineProps({
+  product: {
+    type: Object,
+    required: true
+  }
+})
 </script>
 
 <template>
+  <RouterLink :to="`/product/${product.id}`">
+    <article class="product-card">
+      <img :src="`/${product.imageUrl}`" :alt="product.description" />
 
-<RouterLink :to="`/product/${product.id}`">
-  <article class="product-card">
-
-  <img :src="getImageUrl(product.imageUrl)" :alt="product.description" />
-
-
-    <h3> {{ product.description}}</h3>
-     <h4>{{ product.price }} kr</h4>
+      <h3>{{ product.description }}</h3>
+      <h4>{{ product.price }} kr</h4>
     </article>
-     </RouterLink>
+  </RouterLink>
 </template>
 
 <style scoped>
-
 .product-card {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +27,9 @@ const getImageUrl = (path) => import.meta.env.BASE_URL + path
   background-color: #fff;
   border-radius: 10px;
   padding: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3 ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3 ease;
 }
 
 .product-card:hover {
@@ -50,11 +47,8 @@ const getImageUrl = (path) => import.meta.env.BASE_URL + path
 }
 
 a {
-  color: #0077CC;
+  color: #0077cc;
   text-decoration: none;
   font-weight: bold;
 }
-
-
-
 </style>

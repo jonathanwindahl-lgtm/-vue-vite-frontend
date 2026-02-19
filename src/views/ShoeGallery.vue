@@ -1,77 +1,55 @@
 <script>
-import ProductCard from '../components/ProductCard.vue';
-import { useProductsStore } from '../store';
+import ProductCard from "../components/ProductCard.vue"
+import { useProductsStore } from "../store"
 
-  export default {
+export default {
+  props: {
+    searchText: {
+      type: String,
+      required: true
+    }
+  },
 
-    props: {
-      searchText:String
-    },
+  components: {
+    ProductCard
+  },
 
-    components:{
-      ProductCard
-    },
+  data() {
+    return {
+      productsStore: useProductsStore()
+    }
+  },
 
-    data() {
-      return {
-        productsStore: useProductsStore()
-      }
-    },
-
-    mounted() {
-
-      if (this.productsStore.products.length === 0) {
+  mounted() {
+    if (this.productsStore.products.length === 0) {
       this.productsStore.fetchProducts()
     }
+  },
+
+  computed: {
+    filteredItems() {
+      if (this.searchText) {
+        return this.productsStore.products.filter((p) =>
+          p.description.toLowerCase().includes(this.searchText.toLowerCase())
+        )
+      }
+      return this.productsStore.products
     },
 
-
-    computed: {
-      filteredItems() {
-        if (this.searchText) {
-          return this.productsStore.products.filter(p =>
-          p.description.toLowerCase().includes(this.searchText.toLowerCase()))
-
-      }
-          return this.productsStore.products
-      },
-
-      loading() {
-
-        return this.productsStore?.loading
-      }
-      },
-
-      methods: {
-
-        shuffleArray(array){
-          return array
-          .map (value => ({value, sort: Math.random()}))
-          .sort((a,b) => a.sort - b.sort)
-          .map(({value}) => value)
-
-        }
-      },
-
-    watch: {
-      searchText(newtext, oldText) {
-
-        console.log(oldText+ " Har ändrats till " + newtext)
-      }
+    loading() {
+      return this.productsStore?.loading
     }
+  }
 }
 </script>
 
 <template>
+  <h2 style="color: #0077cc">Populära produkter</h2>
 
-  <h2 style="color:#0077CC;">Populära produkter</h2>
-
-    <section class ="product-grid">
-
+  <section class="product-grid">
     <p v-if="loading">Laddar produkter...</p>
 
-    <ProductCard v-for="p in filteredItems" :key="p.id" :product="p"/>
-
+    <ProductCard v-for="p in filteredItems" :key="p.id" :product="p" />
   </section>
 </template>
 
@@ -83,12 +61,11 @@ import { useProductsStore } from '../store';
 }
 
 @media screen and (max-width: 768px) {
-
-   .product-grid {
+  .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-   .footer-section {
+  .footer-section {
     flex-direction: column;
   }
 }
@@ -96,10 +73,6 @@ import { useProductsStore } from '../store';
 @media screen and (max-width: 480px) {
   .product-grid {
     grid-template-columns: 1fr;
-
   }
-  }
-
-
-
+}
 </style>

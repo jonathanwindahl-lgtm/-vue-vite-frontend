@@ -1,21 +1,23 @@
 <script setup>
+const props = defineProps({
+  modelValue: String
+})
 
- const props = defineProps ({
+const emit = defineEmits(["update:modelValue"])
 
-  modelValue:String
- })
-
- const emit = defineEmits(["update:modelValue"])
-
- const updateValue = (event) => {
-
+const updateValue = (event) => {
   emit("update:modelValue", event.target.value)
- }
- </script>
+}
+</script>
 
 <template>
-<input type="search" class="search-bar" :value="props.modelValue" @input="updateValue" placeholder="Sök efter produkter" />
-
+  <input
+    type="search"
+    class="search-bar"
+    :value="props.modelValue"
+    @input="updateValue"
+    placeholder="Sök efter produkter"
+  />
 </template>
 
 <style scoped>
@@ -26,6 +28,4 @@ input {
   width: 300px;
   padding: 10px;
 }
-
-
 </style>
