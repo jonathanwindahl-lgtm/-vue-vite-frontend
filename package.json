@@ -16,7 +16,6 @@
     "eslint": "^10.0.0",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.3.0",
-    "typescript-eslint": "^8.36.0",
     "unplugin-vue-components": "^31.0.0",
     "vite": "^7.3.0",
     "vue-eslint-parser": "^10.4.0"
